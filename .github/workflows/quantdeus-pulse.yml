@@ -1,0 +1,33 @@
+name: QuantDeus Pulse 🌌
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      pillars:
+        description: 'Pillars to scan (all or comma-separated)'
+        default: 'all'
+        required: false
+
+jobs:
+  pulse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: |
+          npm install playwright
+          npx playwright install chromium
+      - name: Run QuantDeus Pulse
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PILLARS: ${{ inputs.pillars || 'all' }}
+        run: node scripts/orchestrator.js
+      - name: Post report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/report-to-issue.js
