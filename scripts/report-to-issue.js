@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 
 const reportPath = '/tmp/quantdeus-report.json';
 if (!fs.existsSync(reportPath)) { console.log('No report'); return; }
@@ -24,9 +24,29 @@ for (const r of report.results) {
 body += '---\n*Next pulse in 6 hours*\n';
 
 fs.writeFileSync('/tmp/issue-body.md', body);
+const title = `🌌 Pulse ${now.toISOString().slice(0, 13)}:00`;
+const ghEnv = { ...process.env, GH_TOKEN: process.env.GITHUB_TOKEN };
+
 try {
-  execSync(`gh issue create --title "🌌 Pulse ${now.toISOString().slice(0, 13)}:00" --body-file /tmp/issue-body.md`,
-    { stdio: 'pipe', env: { ...process.env, GH_TOKEN: process.env.GITHUB_TOKEN } });
+  const issues = JSON.parse(execFileSync('gh', [
+    'issue', 'list',
+    '--state', 'all',
+    '--search', `${title} in:title`,
+    '--json', 'title,url',
+    '--limit', '10',
+  ], { encoding: 'utf-8', env: ghEnv }));
+
+  const existing = issues.find(issue => issue.title === title);
+  if (existing) {
+    console.log(`Issue already exists: ${existing.url}`);
+    return;
+  }
+
+  execFileSync('gh', [
+    'issue', 'create',
+    '--title', title,
+    '--body-file', '/tmp/issue-body.md',
+  ], { stdio: 'pipe', env: ghEnv });
   console.log('Issue created');
 } catch(e) {
   console.error(e.stderr?.toString() || e.message);
