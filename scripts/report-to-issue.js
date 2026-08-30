@@ -25,7 +25,10 @@ body += '---\n*Next pulse in 6 hours*\n';
 
 fs.writeFileSync('/tmp/issue-body.md', body);
 try {
-  execSync(`gh issue create --title "🌌 Pulse ${now.toISOString().slice(0, 13)}:00" --label "pulse-report" --body-file /tmp/issue-body.md`,
+  execSync(`gh issue create --title "🌌 Pulse ${now.toISOString().slice(0, 13)}:00" --body-file /tmp/issue-body.md`,
     { stdio: 'pipe', env: { ...process.env, GH_TOKEN: process.env.GITHUB_TOKEN } });
   console.log('Issue created');
-} catch(e) { console.error(e.message); }
+} catch(e) {
+  console.error(e.stderr?.toString() || e.message);
+  process.exitCode = 1;
+}
