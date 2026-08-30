@@ -257,7 +257,7 @@ async function refreshHub() {
   fs.writeFileSync('/tmp/quantdeus-coordination-hub.md', body);
   if (hub) {
     if (hub.state !== 'OPEN' && hub.state !== 'open') gh(['issue', 'reopen', String(hub.number)]);
-    gh(['issue', 'edit', String(hub.number), '--body-file', '/tmp/quantdeus-coordination-hub.md']);
+    if (oldHash !== hash) gh(['issue', 'edit', String(hub.number), '--body-file', '/tmp/quantdeus-coordination-hub.md']);
   } else {
     gh(['issue', 'create', '--title', HUB_TITLE, '--body-file', '/tmp/quantdeus-coordination-hub.md']);
     hub = (ghJson(['issue', 'list', '--state', 'open', '--search', `${HUB_TITLE} in:title`, '--limit', '10', '--json', 'number,title,url']) || [])
