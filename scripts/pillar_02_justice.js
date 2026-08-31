@@ -3,6 +3,7 @@ async function scan(browser) {
   const findings = [];
   try {
     await page.goto('https://news.google.com/search?q=AI+ethics+algorithmic+fairness+UBI&hl=en', { waitUntil: 'domcontentloaded', timeout: 15000 });
+    await page.waitForSelector('article', { timeout: 5000 });
     const headlines = await page.$$eval('article h3, article h4, article a[href]', els => {
       const titles = els
         .map(el => el.textContent.replace(/\s+/g, ' ').trim())
