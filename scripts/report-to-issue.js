@@ -8,6 +8,7 @@ const report = JSON.parse(fs.readFileSync(reportPath, 'utf-8'));
 const now = new Date(report.timestamp);
 
 let body = `## 🌌 QuantDeus Pulse — ${now.toUTCString()}\n\n`;
+let headlineCount = 0;
 for (const r of report.results) {
   body += `### ${r.pillar}\n`;
   if (r.status === 'ok' && r.data) {
@@ -15,6 +16,7 @@ for (const r of report.results) {
     for (const source of r.data) {
       if (source.headlines?.length) {
         source.headlines.forEach(h => { body += `- ${h}\n`; });
+        headlineCount += source.headlines.length;
         wroteFinding = true;
       } else if (source.error) {
         body += `- ⚠️ ${source.source || 'Scanner'}: ${source.error}\n`;
@@ -47,16 +49,20 @@ try {
   const existing = issues.find(issue => issue.title === title);
   if (existing) {
     console.log(`Issue already exists: ${existing.url}`);
-    return;
+  } else {
+    execFileSync('gh', [
+      'issue', 'create',
+      '--title', title,
+      '--body-file', '/tmp/issue-body.md',
+    ], { stdio: 'pipe', env: ghEnv });
+    console.log('Issue created');
   }
-
-  execFileSync('gh', [
-    'issue', 'create',
-    '--title', title,
-    '--body-file', '/tmp/issue-body.md',
-  ], { stdio: 'pipe', env: ghEnv });
-  console.log('Issue created');
 } catch(e) {
   console.error(e.stderr?.toString() || e.message);
+  process.exitCode = 1;
+}
+
+if (headlineCount === 0) {
+  console.error('Pulse produced zero usable headlines');
   process.exitCode = 1;
 }
