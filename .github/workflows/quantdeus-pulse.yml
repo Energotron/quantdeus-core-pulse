@@ -10,6 +10,10 @@ on:
         default: 'all'
         required: false
 
+concurrency:
+  group: quantdeus-pulse
+  cancel-in-progress: false
+
 permissions:
   contents: read
   issues: write
