@@ -11,10 +11,18 @@ let body = `## 🌌 QuantDeus Pulse — ${now.toUTCString()}\n\n`;
 for (const r of report.results) {
   body += `### ${r.pillar}\n`;
   if (r.status === 'ok' && r.data) {
+    let wroteFinding = false;
     for (const source of r.data) {
       if (source.headlines?.length) {
         source.headlines.forEach(h => { body += `- ${h}\n`; });
+        wroteFinding = true;
+      } else if (source.error) {
+        body += `- ⚠️ ${source.source || 'Scanner'}: ${source.error}\n`;
+        wroteFinding = true;
       }
+    }
+    if (!wroteFinding) {
+      body += '- _No headlines found; scanner returned no usable items._\n';
     }
   } else if (r.error) {
     body += `⚠️ ${r.error}\n`;
