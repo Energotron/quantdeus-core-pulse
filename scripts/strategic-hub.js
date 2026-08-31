@@ -26,6 +26,23 @@ function ghJson(args) {
   return out ? JSON.parse(out) : null;
 }
 
+function ensureStrategicLabels() {
+  const labels = [
+    ['evidence:A', '1a7f37', 'Strong, independently verifiable evidence'],
+    ['evidence:B', 'bf8700', 'Promising evidence requiring further verification'],
+    ['evidence:C', '6e7781', 'Exploratory signal or early hypothesis'],
+    ['publish:wix-ready', '8250df', 'Verified and approved for selective Wix publication'],
+  ];
+
+  for (const [name, color, description] of labels) {
+    try {
+      gh(['label', 'create', name, '--color', color, '--description', description, '--force']);
+    } catch (e) {
+      console.error(`Label ${name}: ${e.stderr?.toString() || e.message}`);
+    }
+  }
+}
+
 function labelsOf(issue) {
   return (issue.labels || []).map(label => typeof label === 'string' ? label : label.name);
 }
@@ -88,6 +105,8 @@ function isPublicCandidate(issue) {
   const labels = labelsOf(issue).map(label => label.toLowerCase());
   return labels.some(label => ['publish:wix-ready', 'publish-wix-ready', 'public:ready'].includes(label));
 }
+
+ensureStrategicLabels();
 
 const issues = ghJson([
   'issue', 'list', '--state', 'open', '--limit', '100',
