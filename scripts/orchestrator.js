@@ -11,12 +11,26 @@ const PILLARS = [
   { id: 6, name: 'synthesis', title: '✨ Synthesis Aesthetics' },
 ];
 
+function selectPillars(value = 'all') {
+  const names = value.split(',').map(name => name.trim()).filter(Boolean);
+  if (names.length === 1 && names[0] === 'all') return PILLARS;
+  if (names.length === 0) {
+    throw new Error(`PILLARS must be "all" or a comma-separated list of: ${PILLARS.map(p => p.name).join(', ')}`);
+  }
+
+  const unknown = [...new Set(names.filter(name => !PILLARS.some(p => p.name === name)))];
+  if (unknown.length) {
+    throw new Error(`Unknown PILLARS value(s): ${unknown.join(', ')}. Expected "all" or: ${PILLARS.map(p => p.name).join(', ')}`);
+  }
+
+  const requested = new Set(names);
+  return PILLARS.filter(p => requested.has(p.name));
+}
+
 async function run() {
+  const activePillars = selectPillars(process.env.PILLARS || 'all');
   const browser = await chromium.launch({ headless: true });
   const results = [];
-  const activePillars = process.env.PILLARS === 'all'
-    ? PILLARS
-    : PILLARS.filter(p => process.env.PILLARS.split(',').includes(p.name));
 
   for (const pillar of activePillars) {
     console.log(`Scanning ${pillar.title}...`);
@@ -36,4 +50,8 @@ async function run() {
   console.log('Report saved.');
 }
 
-run().catch(err => { console.error(err); process.exit(1); });
+if (require.main === module) {
+  run().catch(err => { console.error(err); process.exit(1); });
+}
+
+module.exports = { selectPillars };
