@@ -43,6 +43,13 @@ function evidenceOf(issue) {
   if (labels.some(label => /evidence[: -]?c|evidence-exploratory/.test(label))) return 'C — exploratory';
 
   const text = issue.body || '';
+  const checkedGrade = text.match(/^\s*[-*]\s*\[[xX]\]\s*([ABC])\s*(?:—|-|:)/m);
+  if (checkedGrade) {
+    const names = { A: 'strong', B: 'promising', C: 'exploratory' };
+    const grade = checkedGrade[1].toUpperCase();
+    return `${grade} — ${names[grade]}`;
+  }
+
   const match = text.match(/(?:evidence|доказательств[ао]?|уровень уверенности)\s*[:—-]\s*([ABC])\b/i);
   return match ? `${match[1].toUpperCase()} — declared` : '—';
 }
