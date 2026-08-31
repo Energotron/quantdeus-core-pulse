@@ -32,22 +32,25 @@ async function run() {
   const browser = await chromium.launch({ headless: true });
   const results = [];
 
-  for (const pillar of activePillars) {
-    console.log(`Scanning ${pillar.title}...`);
-    try {
-      const scriptPath = path.join(__dirname, `pillar_${String(pillar.id).padStart(2, '0')}_${pillar.name}.js`);
-      if (fs.existsSync(scriptPath)) {
-        const scanner = require(scriptPath);
-        const result = await scanner.scan(browser);
-        results.push({ pillar: pillar.title, status: 'ok', data: result });
+  try {
+    for (const pillar of activePillars) {
+      console.log(`Scanning ${pillar.title}...`);
+      try {
+        const scriptPath = path.join(__dirname, `pillar_${String(pillar.id).padStart(2, '0')}_${pillar.name}.js`);
+        if (fs.existsSync(scriptPath)) {
+          const scanner = require(scriptPath);
+          const result = await scanner.scan(browser);
+          results.push({ pillar: pillar.title, status: 'ok', data: result });
+        }
+      } catch (err) {
+        results.push({ pillar: pillar.title, status: 'error', error: err.message });
       }
-    } catch (err) {
-      results.push({ pillar: pillar.title, status: 'error', error: err.message });
     }
+    fs.writeFileSync('/tmp/quantdeus-report.json', JSON.stringify({ timestamp: new Date().toISOString(), results }, null, 2));
+    console.log('Report saved.');
+  } finally {
+    await browser.close();
   }
-  await browser.close();
-  fs.writeFileSync('/tmp/quantdeus-report.json', JSON.stringify({ timestamp: new Date().toISOString(), results }, null, 2));
-  console.log('Report saved.');
 }
 
 if (require.main === module) {
