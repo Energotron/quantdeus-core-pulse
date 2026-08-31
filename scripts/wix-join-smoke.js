@@ -2,6 +2,7 @@
 
 const SITE_URL = 'https://elektron2345.wixsite.com/quantdeus';
 const JOIN_TEXT = 'Присоединиться';
+const FETCH_TIMEOUT_MS = 15000;
 
 function stripTags(html) {
   return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
@@ -69,6 +70,7 @@ async function main() {
   const response = await fetch(SITE_URL, {
     redirect: 'follow',
     headers: { 'user-agent': 'QuantDeus-Wix-Smoke/1.0' },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
   });
   if (!response.ok) throw new Error(`Wix live fetch failed: HTTP ${response.status}`);
 
