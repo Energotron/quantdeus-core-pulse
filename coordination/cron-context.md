@@ -1,0 +1,27 @@
+# QuantDeus Daily Context Checkpoint
+
+- date: 2026-09-08
+- canonical_repo: `Energotron/quantdeus-core-pulse`
+- canonical_branch: `main`
+- canonical_head_before_cycle: `f3fe96b2044e386d81108259e65a2c79057165d8`
+- cycle_increment_commit: `5f4c52def57088117e578258499f69c1156e73e4`
+- active_site_builder: `Replit`
+- active_portal_name: `QuantDeus Horizon`
+- active_portal_url: `https://quant-deus-horizon--elektron2345.replit.app`
+- active_portal_publish_status: `success`
+- portal_stack: `React + Vite + TypeScript; Express backend; Replit-managed Clerk; Wouter; TanStack Query; Tailwind/shadcn`
+- portal_current_surfaces: `public landing; /dashboard Mission Control; /dashboard/openclaw OpenClaw Console`
+- portal_data_state: `Mission Control monitoring remains in-memory; persistent portal domain/API is not yet safely integrated`
+- coordination_model: `GitHub Issues [SIGNAL]/[STRATEGY]/[TASK] + opt-in /take workflow`
+- legacy_stack_note: `docs/WIX_MESH.md and docs/WIX_AGENT_MESH.md are historical and do not define the active runtime`
+- digital_theosophy_status: `no canonical Digital Theosophy material or dedicated portal surface found in quantdeus-core-pulse main during this cycle`
+- kr3_resolved_repo: `Energotron/SRHD_Children_of_Eltan` (requested legacy identity `Energotron/space_rangers3` resolves here)
+- kr3_branch: `master`
+- kr3_verified_head: `36777774b53f108120a800482fca737ee87dbd7d`
+- kr3_current_direction: `SRHD mod-first Children of Eltan; WebGL/APK promotion frozen; latest verified increment documents ModuleInfo Section + SectionEng semantics`
+- changed_this_cycle: `README now names Replit Horizon as the active public portal/runtime and explicitly demotes Wix mesh docs to historical status`
+- checks: `Replit app resolved; publish status success; active routes/stack inspected without intentional app modification; README re-read after commit; KR3 latest commit inspected; canonical repo searched for Digital Theosophy/checkpoint material`
+- blockers:
+  - `Replit working tree contains unfinished backend/domain files from an earlier expansion attempt; they are not integrated and currently fail server type checks according to Replit inspection.`
+  - `Digital Theosophy is not represented in the canonical repo or current portal surfaces, so no verified material was integrated.`
+- next_step: `Before adding any new portal feature, reconcile the unfinished Replit backend/domain work into a type-clean, persistent data layer for Mission Control without changing the public information architecture.`
