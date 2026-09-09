@@ -1,27 +1,31 @@
 # QuantDeus Daily Context Checkpoint
 
-- date: 2026-09-08
+- date: 2026-09-09
 - canonical_repo: `Energotron/quantdeus-core-pulse`
 - canonical_branch: `main`
-- canonical_head_before_cycle: `f3fe96b2044e386d81108259e65a2c79057165d8`
-- cycle_increment_commit: `5f4c52def57088117e578258499f69c1156e73e4`
+- canonical_head_before_cycle: `2b557e0acea78f195cb650abe03b8ca5f8867889`
 - active_site_builder: `Replit`
 - active_portal_name: `QuantDeus Horizon`
 - active_portal_url: `https://quant-deus-horizon--elektron2345.replit.app`
 - active_portal_publish_status: `success`
-- portal_stack: `React + Vite + TypeScript; Express backend; Replit-managed Clerk; Wouter; TanStack Query; Tailwind/shadcn`
-- portal_current_surfaces: `public landing; /dashboard Mission Control; /dashboard/openclaw OpenClaw Console`
-- portal_data_state: `Mission Control monitoring remains in-memory; persistent portal domain/API is not yet safely integrated`
+- portal_stack: `React + Vite + TypeScript; Express 5 backend; Replit-managed Clerk; Wouter; TanStack Query; Tailwind/shadcn; Pino; OpenClaw WebSocket transport; Drizzle/PostgreSQL prepared`
+- portal_current_surfaces: `public landing; /sign-in; /sign-up; /dashboard Mission Control; /dashboard/openclaw OpenClaw Console`
+- portal_backend_routes_active: `/api/healthz; /api/agent/*; /api/monitoring/*; report endpoint; unfinished /portal/, /admin/, /agents routes are not wired into the main router`
+- portal_data_state: `Mission Control monitoring remains an in-memory MonitoringStore seeded with five agents and simulated events/metrics; restart resets state; PostgreSQL public schema currently has no portal tables`
+- openclaw_state: `OpenClaw status/chat use the configured real WebSocket gateway and are not simulated`
 - coordination_model: `GitHub Issues [SIGNAL]/[STRATEGY]/[TASK] + opt-in /take workflow`
 - legacy_stack_note: `docs/WIX_MESH.md and docs/WIX_AGENT_MESH.md are historical and do not define the active runtime`
-- digital_theosophy_status: `no canonical Digital Theosophy material or dedicated portal surface found in quantdeus-core-pulse main during this cycle`
-- kr3_resolved_repo: `Energotron/SRHD_Children_of_Eltan` (requested legacy identity `Energotron/space_rangers3` resolves here)
+- digital_theosophy_status: `no canonical Digital Theosophy material or dedicated portal surface found in quantdeus-core-pulse main as of this cycle`
+- kr3_resolved_repo: `Energotron/SRHD_Children_of_Eltan` (legacy `Energotron/space_rangers3` redirects/resolves here)
 - kr3_branch: `master`
 - kr3_verified_head: `36777774b53f108120a800482fca737ee87dbd7d`
-- kr3_current_direction: `SRHD mod-first Children of Eltan; WebGL/APK promotion frozen; latest verified increment documents ModuleInfo Section + SectionEng semantics`
-- changed_this_cycle: `README now names Replit Horizon as the active public portal/runtime and explicitly demotes Wix mesh docs to historical status`
-- checks: `Replit app resolved; publish status success; active routes/stack inspected without intentional app modification; README re-read after commit; KR3 latest commit inspected; canonical repo searched for Digital Theosophy/checkpoint material`
+- kr3_current_direction: `SRHD mod-first Children of Eltan; latest verified commit remains docs: verify ModuleInfo SectionEng semantics; no newer master commit found this cycle`
+- chosen_increment: `minimal repair of the real Replit backend type-check defect caused by unfinished routes importing zod without the API-server dependency`
+- increment_status: `requested in Replit; verification still pending because the Replit Agent remained busy, so the portal was not published and the fix is not yet claimed as complete`
+- checks: `canonical README/coordination/checkpoint re-read; latest quantdeus-core-pulse commits inspected; Replit app resolved and publish status confirmed success; Replit runtime/routes/data state inspected; KR3 redirected repository and latest master commit inspected; canonical repo searched for Digital Theosophy material; no public portal publish performed`
 - blockers:
-  - `Replit working tree contains unfinished backend/domain files from an earlier expansion attempt; they are not integrated and currently fail server type checks according to Replit inspection.`
-  - `Digital Theosophy is not represented in the canonical repo or current portal surfaces, so no verified material was integrated.`
-- next_step: `Before adding any new portal feature, reconcile the unfinished Replit backend/domain work into a type-clean, persistent data layer for Mission Control without changing the public information architecture.`
+  - `Replit working tree contains unfinished portal/domain backend files; before the requested repair, pnpm run typecheck failed because zod was missing from the API-server dependency set.`
+  - `The minimal zod/type-check repair has been requested but could not yet be re-verified because the Replit Agent remained busy during this cycle.`
+  - `Persistent Mission Control domain data is not integrated; development PostgreSQL public schema has no portal tables.`
+  - `Digital Theosophy is still absent from the canonical repository and current portal surfaces, so nothing was integrated from unverified external context.`
+- next_step: `Verify that the minimal Replit dependency repair has completed and that the full repository type-check passes without wiring new routes, applying DB schemas, changing navigation, or publishing the portal.`
