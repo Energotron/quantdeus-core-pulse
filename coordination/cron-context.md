@@ -1,9 +1,9 @@
 # QuantDeus Daily Context Checkpoint
 
-- date: 2026-09-10
+- date: 2026-09-11
 - canonical_repo: `Energotron/quantdeus-core-pulse`
 - canonical_branch: `main`
-- canonical_head_before_cycle: `820461e71e537053d486e59e6a4044609b0208cb`
+- canonical_head_before_cycle: `17d3291267d79c0bf71691f63a995b3cdb201277`
 - active_site_builder: `Replit`
 - active_portal_name: `QuantDeus Horizon`
 - active_portal_url: `https://quant-deus-horizon--elektron2345.replit.app`
@@ -19,17 +19,23 @@
 - kr3_resolved_repo: `Energotron/SRHD_Children_of_Eltan` (legacy `Energotron/space_rangers3` resolves here)
 - kr3_branch: `master`
 - kr3_verified_head: `36777774b53f108120a800482fca737ee87dbd7d`
-- kr3_current_direction: `SRHD mod-first Children of Eltan; latest verified commit remains docs: verify ModuleInfo SectionEng semantics; no newer master commit found this cycle`
-- chosen_increment: `close the previously open Replit type-check blocker by verifying the minimal zod dependency repair and recording the verified project status`
+- kr3_current_direction: `SRHD mod-first Children of Eltan; no newer master commit found this cycle`
+- warp_repo: `Energotron/Warp-buble`
+- warp_branch: `main`
+- warp_verified_head: `d57df17c936e70b0ca90faa303e1d14f51e88e55`
+- warp_new_accepted_metric: `luminal Horndeski master screening equation; candidate Phaedrus regime r_screen ∝ M; reproducible xAlpha -> master equation -> escut pipeline; hyperbolicity/well-posedness remains mandatory before phenomenology`
+- warp_provenance: `https://github.com/Energotron/Warp-buble/commit/d57df17c936e70b0ca90faa303e1d14f51e88e55 ; https://doi.org/10.1103/tqp2-ccy5`
+- chosen_increment: `close the production frontend build verification blocker using the active Replit production artifact environment, without changing code or deployment`
 - increment_status: `complete`
-- changed_this_cycle: `no portal code, routes, navigation, database schema, or deployment changed; checkpoint updated to record that the Replit zod repair is complete and full type-check/API build now pass`
-- checks: `canonical README/coordination/checkpoint re-read; latest quantdeus-core-pulse commits inspected; active Replit app resolved; publish status confirmed success; Replit project inspected read-only; zod dependency and lockfile confirmed synchronized; git working tree reported clean; pnpm run typecheck passed; API-server build passed; frontend build remains blocked in the inspection shell by missing required PORT/BASE_PATH environment configuration before app compilation; public routes and Mission Control wiring confirmed unchanged; latest SRHD_Children_of_Eltan master commits inspected; quantdeus-core-pulse searched for Digital Theosophy material`
+- changed_this_cycle: `no portal code, dependencies, routes, navigation, configuration, database schema, or deployment changed; checkpoint updated to record successful production frontend build verification and the latest accepted Warp metric`
+- checks: `canonical README/COORDINATION/checkpoint re-read; recent quantdeus-core-pulse commits inspected; root/docs/coordination structure inspected and no newer machine-readable roadmap/status manifest found; active Replit app resolved; publish status confirmed success; production artifact environment confirmed PORT=24116 and BASE_PATH=/; real production frontend build completed with exit code 0, 2248 modules transformed, dist/public/index.html plus production CSS/JS bundles generated; git working tree remained clean; build emitted non-blocking sourcemap warning in tooltip component and a 628.68 kB JS chunk-size warning; latest Warp-buble main/INDEX/checkpoint inspected; latest SRHD_Children_of_Eltan master commits inspected; no newer canonical Digital Theosophy material found`
 - verified_links:
-  - `https://github.com/Energotron/quantdeus-core-pulse/commit/820461e71e537053d486e59e6a4044609b0208cb`
+  - `https://github.com/Energotron/quantdeus-core-pulse/commit/17d3291267d79c0bf71691f63a995b3cdb201277`
+  - `https://github.com/Energotron/Warp-buble/commit/d57df17c936e70b0ca90faa303e1d14f51e88e55`
   - `https://github.com/Energotron/SRHD_Children_of_Eltan/commit/36777774b53f108120a800482fca737ee87dbd7d`
   - `https://quant-deus-horizon--elektron2345.replit.app`
 - blockers:
-  - `Frontend production build cannot yet be fully re-verified from the current Replit inspection shell because required PORT/BASE_PATH environment variables are absent there; this is currently an environment-validation blocker, not a confirmed source-code defect.`
   - `Persistent Mission Control domain data is not integrated; development PostgreSQL is not yet serving portal state.`
   - `Digital Theosophy remains absent from the canonical repository, so it must not be surfaced as canonical portal content until a verified source is added.`
-- next_step: `Perform a read-only production-build verification in an environment with the portal's required PORT and BASE_PATH values available; if it passes, record that result without changing routes, persistence, navigation, or deployment.`
+  - `Frontend production build has no blocking failure, but the current bundle includes a non-blocking ~628.68 kB JS chunk warning and one sourcemap warning.`
+- next_step: `Perform a read-only investigation of the Mission Control persistence path and identify the smallest safe change required to replace restart-volatile MonitoringStore state with the already prepared PostgreSQL/Drizzle layer; do not implement persistence until the current data model and migration path are verified.`
