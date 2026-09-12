@@ -2,7 +2,7 @@ name: QuantDeus Pulse 🌌
 
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '23 */3 * * *'
   workflow_dispatch:
     inputs:
       pillars:
@@ -28,7 +28,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
       - name: Install dependencies
         run: |
           npm install playwright
