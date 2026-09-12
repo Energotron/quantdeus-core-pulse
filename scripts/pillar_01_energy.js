@@ -2,7 +2,7 @@ async function scan(browser) {
   const page = await browser.newPage();
   const findings = [];
   try {
-    await page.goto('https://news.google.com/search?q=fusion+energy+renewable+breakthrough&hl=en', { waitUntil: 'domcontentloaded', timeout: 15000 });
+    await page.goto('https://news.google.com/search?q=fusion+energy+grid+storage+superconductors+renewable+space+solar+power+breakthrough&hl=en', { waitUntil: 'domcontentloaded', timeout: 15000 });
     await page.waitForSelector('article', { timeout: 5000 });
     const headlines = await page.$$eval('article h3, article h4, article a[href]', els => {
       const titles = els
