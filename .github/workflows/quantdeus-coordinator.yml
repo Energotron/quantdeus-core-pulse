@@ -2,7 +2,7 @@ name: QuantDeus Coordinator 🧭
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '17,47 * * * *'
   workflow_dispatch:
   issues:
     types: [opened, edited, reopened, closed, labeled, unlabeled]
@@ -27,7 +27,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
       - name: Coordinate contributors and refresh hubs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
