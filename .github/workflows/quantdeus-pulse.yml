@@ -1,8 +1,6 @@
 name: QuantDeus Pulse 🌌
 
 on:
-  schedule:
-    - cron: '0 */6 * * *'
   workflow_dispatch:
     inputs:
       pillars:
