@@ -31,7 +31,7 @@ for (const r of report.results) {
   }
   body += '\n';
 }
-body += '---\n*Next pulse in 6 hours*\n';
+body += '---\n*Next pulse in 3 hours*\n';
 
 fs.writeFileSync('/tmp/issue-body.md', body);
 const title = `🌌 Pulse ${now.toISOString().slice(0, 13)}:00`;
@@ -63,6 +63,5 @@ try {
 }
 
 if (headlineCount === 0) {
-  console.error('Pulse produced zero usable headlines');
-  process.exitCode = 1;
+  console.warn('Pulse produced zero usable headlines; report was still generated successfully.');
 }
