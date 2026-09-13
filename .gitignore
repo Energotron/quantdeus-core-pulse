@@ -1,0 +1,31 @@
+# QuantDeus public Pages repo — keep local/site source out of future commits
+/site/
+/telegram/
+/dist/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.keystore
+*.jks
+
+# Local config / credentials
+secrets/
+.private/
+credentials.json
+service-account*.json
+
+# Common local/build noise
+node_modules/
+.cache/
+.tmp/
+*.log
+.DS_Store
+Thumbs.db
