@@ -8,7 +8,8 @@ on:
 env:
   QUANTDEUS_FRONTEND: telegram-mini-app
   QUANTDEUS_STORE_NAME: QuantDeus Store
-  QUANTDEUS_CANONICAL_DOMAIN: https://quantdeus.tk
+  QUANTDEUS_CANONICAL_DOMAIN: https://quantdeus.github.io/quantdeus-core-pulse/
+  QUANTDEUS_HOST: github-pages
 
 permissions:
   contents: read
