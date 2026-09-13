@@ -29,6 +29,7 @@ jobs:
           rm -rf dist
           mkdir -p dist/telegram
           cp site/index.html dist/index.html
+          cp site/habr-test.html dist/habr-test.html
           cp telegram/index.html dist/telegram/index.html
           touch dist/.nojekyll
 
