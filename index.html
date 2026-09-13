@@ -1,182 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0b1020" />
-  <title>QuantDeus — Операционная Система Цивилизации</title>
-  <meta name="description" content="QuantDeus — футуристический лендинг о шести столпах, столетнем плане и космическом будущем." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#090a20" />
+  <title>QuantDeus Store — Y2K Cinema</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
-    :root {
-      --bg: #070b16;
-      --panel: rgba(13, 19, 39, 0.78);
-      --panel-2: rgba(20, 30, 58, 0.72);
-      --text: #eaf0ff;
-      --muted: #a9b5d6;
-      --line: rgba(140, 165, 255, 0.16);
-      --accent: #87a7ff;
-      --accent-2: #69f0c5;
-      --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
-      --radius: 28px;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; }
-    body {
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(103, 149, 255, 0.20), transparent 32%),
-        radial-gradient(circle at 20% 20%, rgba(105, 240, 197, 0.12), transparent 20%),
-        linear-gradient(180deg, #060914 0%, #0a1020 55%, #05070d 100%);
-      color: var(--text);
-      line-height: 1.5;
-    }
-    a { color: inherit; text-decoration: none; }
-    .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 20px 56px; }
-    .topbar {
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
-      margin-bottom: 26px;
-    }
-    .brand {
-      display: flex; align-items: center; gap: 14px;
-      padding: 12px 16px; border: 1px solid var(--line);
-      border-radius: 999px; background: rgba(255,255,255,0.04);
-      backdrop-filter: blur(14px);
-    }
-    .orb { width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 0 22px rgba(105,240,197,.55); }
-    .brand strong { letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.88rem; }
-    .chip {
-      padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px;
-      background: rgba(255,255,255,0.03); color: var(--muted); font-size: 0.94rem;
-    }
-    .hero {
-      display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 22px; align-items: stretch;
-      margin-top: 14px;
-    }
-    .panel {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, var(--panel), rgba(7, 11, 22, 0.78));
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-    }
-    .hero-main { padding: 34px; position: relative; overflow: hidden; }
-    .hero-main::after {
-      content: ""; position: absolute; inset: -2px;
-      background: radial-gradient(circle at 78% 18%, rgba(135,167,255,0.18), transparent 24%),
-                  radial-gradient(circle at 15% 82%, rgba(105,240,197,0.10), transparent 18%);
-      pointer-events: none;
-    }
-    .eyebrow { color: var(--accent-2); text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.78rem; margin-bottom: 14px; }
-    h1 { margin: 0; font-size: clamp(2.8rem, 5vw, 5.6rem); line-height: 0.96; letter-spacing: -0.05em; }
-    .lead { margin: 20px 0 0; max-width: 62ch; color: var(--muted); font-size: 1.08rem; }
-    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 13px 18px; border-radius: 999px; border: 1px solid var(--line);
-      background: rgba(255,255,255,0.05); font-weight: 650;
-    }
-    .btn.primary { background: linear-gradient(135deg, rgba(135,167,255,0.95), rgba(105,240,197,0.86)); color: #05111a; border-color: transparent; }
-    .hero-side { padding: 22px; display: grid; gap: 14px; }
-    .stat {
-      padding: 18px; border-radius: 22px; border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-    }
-    .stat .k { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 8px; }
-    .stat .v { font-size: 1.2rem; font-weight: 700; }
-    .grid { display: grid; gap: 22px; margin-top: 22px; grid-template-columns: repeat(12, 1fr); }
-    .card {
-      padding: 22px; border-radius: 24px; border: 1px solid var(--line);
-      background: linear-gradient(180deg, var(--panel-2), rgba(7, 11, 22, 0.66));
-      box-shadow: var(--shadow);
-    }
-    .pillars { grid-column: span 7; }
-    .plan { grid-column: span 5; }
-    .section-title { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 18px; }
-    .section-title h2 { margin: 0; font-size: 1.35rem; }
-    .section-title span { color: var(--muted); font-size: 0.95rem; }
-    .pill-list { display: grid; gap: 12px; }
-    .pill {
-      display: grid; grid-template-columns: 56px 1fr; gap: 14px; align-items: start;
-      padding: 16px; border-radius: 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
-    }
-    .icon {
-      width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center; font-size: 1.35rem;
-      background: linear-gradient(135deg, rgba(135,167,255,0.2), rgba(105,240,197,0.16));
-      border: 1px solid rgba(255,255,255,0.07);
-    }
-    .pill h3, .phase h3 { margin: 0 0 6px; font-size: 1rem; }
-    .pill p, .phase p { margin: 0; color: var(--muted); }
-    .timeline { display: grid; gap: 12px; }
-    .phase { padding: 16px; border-radius: 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); }
-    .phase-top { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 8px; color: var(--muted); font-size: 0.92rem; }
-    .footer {
-      margin-top: 22px; padding: 18px 20px; color: var(--muted); text-align: center;
-      border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,0.03);
-    }
-    @media (max-width: 960px) {
-      .hero, .grid { grid-template-columns: 1fr; }
-      .pillars, .plan { grid-column: auto; }
-      .hero-main { padding: 24px; }
-    }
+    :root{--bg:#070817;--panel:rgba(18,22,55,.68);--line:rgba(133,209,255,.22);--text:#f6f7ff;--muted:#9da6c9;--cyan:#62eaff;--pink:#ff65dd;--lime:#b8ffdc;--shadow:0 18px 60px rgba(0,0,0,.45)}
+    *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 80% -10%,rgba(101,83,255,.32),transparent 35%),radial-gradient(circle at 8% 16%,rgba(0,229,255,.18),transparent 34%),linear-gradient(180deg,#090a20 0%,#070817 55%,#050611 100%);min-height:100vh;overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#8eeaff 1px,transparent 1px);background-size:41px 41px,73px 73px;background-position:0 0,18px 27px;mask-image:linear-gradient(to bottom,black,transparent 75%)}
+    .scanlines{position:fixed;inset:0;pointer-events:none;opacity:.055;z-index:30;background:repeating-linear-gradient(180deg,transparent 0 3px,#fff 3px 4px)}.app{max-width:980px;margin:0 auto;padding:18px 16px 110px;position:relative}.topbar{display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:20;padding:12px 0 14px;backdrop-filter:blur(16px)}
+    .brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1}.orb{width:38px;height:38px;border-radius:50%;position:relative;flex:0 0 auto;background:radial-gradient(circle at 35% 30%,#fff 0 5%,#67ecff 12%,#706cff 48%,#161839 70%);box-shadow:0 0 26px rgba(98,234,255,.35)}.orb:after{content:"";position:absolute;width:54px;height:14px;border:2px solid rgba(255,101,221,.7);border-radius:50%;left:-9px;top:11px;transform:rotate(-14deg)}
+    .brand h1{font-size:16px;margin:0;letter-spacing:.03em}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.badge{font-size:10px;padding:8px 10px;border:1px solid var(--line);border-radius:999px;color:var(--lime);background:rgba(16,30,46,.52);white-space:nowrap}.hero{border:1px solid var(--line);border-radius:28px;padding:22px;min-height:270px;position:relative;overflow:hidden;background:linear-gradient(125deg,rgba(8,15,48,.92),rgba(41,25,91,.70)),radial-gradient(circle at 75% 35%,rgba(98,234,255,.36),transparent 24%);box-shadow:var(--shadow)}
+    .hero:before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-70px;top:5px;background:radial-gradient(circle at 35% 30%,#9ff8ff 0 2%,#4d64cd 15%,#313a84 40%,#10132d 68%);box-shadow:0 0 80px rgba(84,167,255,.38)}.hero:after{content:"";position:absolute;width:390px;height:68px;border:5px solid rgba(255,122,229,.32);border-radius:50%;right:-128px;top:98px;transform:rotate(-12deg)}
+    .kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#c6c9ff}.hero h2{font-size:clamp(34px,8vw,68px);line-height:.92;margin:20px 0 12px;max-width:570px;letter-spacing:-.05em;text-shadow:0 0 28px rgba(123,209,255,.28);position:relative;z-index:2}.hero h2 span{background:linear-gradient(90deg,var(--cyan),#fff,var(--pink));-webkit-background-clip:text;color:transparent}.hero p{max-width:520px;color:#c8ccec;line-height:1.55;margin:0 0 20px;position:relative;z-index:2}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:2}
+    button{font:inherit}.btn{border:0;border-radius:14px;padding:12px 16px;font-weight:750;cursor:pointer;color:#07101e;background:linear-gradient(135deg,#a8f8ff,#79c9ff 48%,#bd90ff);box-shadow:0 9px 28px rgba(89,190,255,.23)}.btn.ghost{color:#eef3ff;border:1px solid var(--line);background:rgba(20,25,62,.56);box-shadow:none}.section{margin-top:24px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:12px}.section h3{font-size:20px;margin:0}.section-head small{color:var(--muted)}
+    .search{display:flex;gap:10px;margin-top:18px}.search input{width:100%;color:var(--text);background:rgba(11,14,39,.75);border:1px solid var(--line);outline:none;border-radius:16px;padding:14px 15px}.chips{display:flex;gap:8px;overflow:auto;padding:12px 0 2px;scrollbar-width:none}.chip{white-space:nowrap;border:1px solid var(--line);background:rgba(16,19,49,.72);color:#cdd4f5;padding:9px 12px;border-radius:999px;cursor:pointer}.chip.active{color:#07101e;border-color:transparent;background:linear-gradient(90deg,var(--cyan),#c8fbff,var(--pink))}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--panel);box-shadow:0 10px 32px rgba(0,0,0,.22);cursor:pointer}.poster{aspect-ratio:4/5;position:relative;padding:12px;display:flex;align-items:flex-end;overflow:hidden}.poster:before{content:"";position:absolute;inset:-20%;background:radial-gradient(circle at 72% 22%,rgba(255,255,255,.9) 0 1%,transparent 2%),radial-gradient(circle at 40% 44%,rgba(105,239,255,.36),transparent 28%),conic-gradient(from 190deg,#111c4e,#753f9c,#191d50,#175b83,#111c4e);transform:rotate(-9deg) scale(1.2)}
+    .poster.neon:before{background:linear-gradient(155deg,#1b1845,#6b216d 45%,#142f73)}.poster.warp:before{background:radial-gradient(circle,#e9fbff 0 2%,#51ddff 4%,#6154e7 12%,transparent 26%),linear-gradient(140deg,#09162f,#281c5d,#102e57)}.poster.eltan:before{background:radial-gradient(circle at 50% 35%,#aaf7ff 0 3%,#3dc6ff 4% 7%,#182a6c 9% 19%,transparent 22%),linear-gradient(150deg,#071528,#244f71,#4a2f70)}.poster.ufo:before{background:radial-gradient(ellipse at 50% 28%,#e8fbff 0 2%,#a7f5ff 3% 6%,#2b4271 7% 11%,transparent 12%),linear-gradient(180deg,#07101c,#11213a 54%,#1b462d)}.poster.synth:before{background:linear-gradient(180deg,#331a62 0 42%,#ff5dbd 43% 44%,#332b66 45% 56%,#081224 57%)}.poster.rangers:before{background:radial-gradient(circle at 72% 18%,#b4f5ff 0 2%,#5573cf 5%,transparent 20%),linear-gradient(150deg,#11193c,#3d2c70,#102849)}
+    .poster-content{position:relative;z-index:2;width:100%;text-shadow:0 2px 16px #000}.poster .tag{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#cceaff}.poster strong{display:block;font-size:18px;line-height:1.05;margin-top:4px}.meta{padding:12px}.meta-row{display:flex;justify-content:space-between;align-items:center;gap:8px}.meta small{color:var(--muted)}.fav{width:34px;height:34px;border:1px solid var(--line);border-radius:12px;background:rgba(11,14,39,.78);color:#d9ddf9;font-size:17px;cursor:pointer;display:grid;place-items:center}.fav.on{color:#ff7cde;border-color:rgba(255,124,222,.55)}
+    .vibes{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.vibe{padding:15px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,rgba(24,29,72,.88),rgba(57,31,86,.58));min-height:90px}.vibe b{display:block;margin-bottom:5px}.vibe small{color:var(--muted)}.empty{display:none;padding:26px;border:1px dashed var(--line);border-radius:18px;color:var(--muted);text-align:center}
+    .modal{position:fixed;inset:0;z-index:50;background:rgba(2,3,10,.76);backdrop-filter:blur(18px);display:none;align-items:flex-end;justify-content:center}.modal.open{display:flex}.sheet{width:min(700px,100%);background:linear-gradient(180deg,#171a41,#0b0d25);border:1px solid var(--line);border-radius:28px 28px 0 0;padding:18px 18px calc(26px + env(safe-area-inset-bottom));box-shadow:0 -20px 80px rgba(0,0,0,.45)}.grab{width:48px;height:5px;border-radius:10px;background:#51587f;margin:0 auto 16px}.sheet h3{font-size:28px;margin:8px 0}.sheet p{color:#bbc2e5;line-height:1.55}.modal-actions{display:flex;gap:10px;margin-top:18px}.modal-actions .btn{flex:1}
+    .nav{position:fixed;z-index:40;bottom:12px;left:50%;transform:translateX(-50%);width:min(650px,calc(100% - 24px));display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:8px;border:1px solid var(--line);background:rgba(10,12,34,.85);backdrop-filter:blur(20px);border-radius:20px;box-shadow:var(--shadow)}.nav button{border:0;background:transparent;color:#9fa7c9;padding:8px 3px;border-radius:13px;font-size:11px}.nav button span{display:block;font-size:20px;margin-bottom:2px}.nav button.active{color:#fff;background:rgba(101,130,255,.15)}.toast{position:fixed;z-index:90;top:18px;left:50%;transform:translate(-50%,-20px);opacity:0;background:#10142f;border:1px solid var(--line);padding:11px 14px;border-radius:14px;transition:.25s;pointer-events:none}.toast.show{transform:translate(-50%,0);opacity:1}
+    @media(min-width:720px){.app{padding-left:24px;padding-right:24px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.vibes{grid-template-columns:repeat(4,1fr)}.hero{padding:34px;min-height:340px}}
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <div class="topbar">
-      <div class="brand"><span class="orb"></span><strong>QuantDeus</strong></div>
-      <div class="chip">Операционная Система Цивилизации</div>
-    </div>
-
-    <section class="hero">
-      <article class="panel hero-main">
-        <div class="eyebrow">Future stack · Future society · Future orbit</div>
-        <h1>Проект, который собирает смысл, энергию и космос в одну систему.</h1>
-        <p class="lead">Алгоритмическая справедливость, чистая энергия, планетарная кооперация и космическая экспансия — всё в одном визуальном ядре для GitHub Pages.</p>
-        <div class="actions">
-          <a class="btn primary" href="https://github.com/Energotron/quantdeus-core-pulse" target="_blank" rel="noreferrer">Открыть репозиторий →</a>
-          <a class="btn" href="#pillars">Шесть столпов</a>
-          <a class="btn" href="#plan">Столетний план</a>
-        </div>
-      </article>
-
-      <aside class="panel hero-side">
-        <div class="stat"><span class="k">Статус</span><span class="v">Pages-ready static site</span></div>
-        <div class="stat"><span class="k">Формат</span><span class="v">Single-file HTML</span></div>
-        <div class="stat"><span class="k">Публикация</span><span class="v">GitHub Pages / main</span></div>
-      </aside>
-    </section>
-
-    <section class="grid">
-      <article id="pillars" class="card pillars">
-        <div class="section-title">
-          <h2>Шесть столпов</h2>
-          <span>Схема из README репозитория</span>
-        </div>
-        <div class="pill-list">
-          <div class="pill"><div class="icon">⚡</div><div><h3>Энергетика будущего</h3><p>Термояд, ВИЭ, БОД и чистая энергия для всех.</p></div></div>
-          <div class="pill"><div class="icon">⚖️</div><div><h3>Алгоритмическая справедливость</h3><p>ИИ-этика, UBI и распределение ресурсов.</p></div></div>
-          <div class="pill"><div class="icon">🌍</div><div><h3>Планетарное единство</h3><p>Глобальная кооперация, экология и климат.</p></div></div>
-          <div class="pill"><div class="icon">🚀</div><div><h3>Космическая экспансия</h3><p>Колонизация, варп и орбитальные города.</p></div></div>
-          <div class="pill"><div class="icon">🧬</div><div><h3>Человеческий потенциал</h3><p>Продление жизни, биохакинг и нейросети.</p></div></div>
-          <div class="pill"><div class="icon">✨</div><div><h3>Эстетика синтеза</h3><p>Технологии + искусство, культура будущего.</p></div></div>
-        </div>
-      </article>
-
-      <article id="plan" class="card plan">
-        <div class="section-title">
-          <h2>Столетний план</h2>
-          <span>2025–2125</span>
-        </div>
-        <div class="timeline">
-          <div class="phase"><div class="phase-top"><strong>2025–2050</strong><span>Синхронизация</span></div><h3>Phase I</h3><p>Сборка ядра, выравнивание систем и инфраструктуры.</p></div>
-          <div class="phase"><div class="phase-top"><strong>2050–2075</strong><span>Ренессанс</span></div><h3>Phase II</h3><p>Рост, творчество, масштабирование и новая культура.</p></div>
-          <div class="phase"><div class="phase-top"><strong>2075–2100</strong><span>Варп-порог</span></div><h3>Phase III</h3><p>Переход к звёздным технологиям и глубокому космосу.</p></div>
-          <div class="phase"><div class="phase-top"><strong>2100–2125</strong><span>Звёздная Федерация</span></div><h3>Phase IV</h3><p>Новая цивилизационная архитектура и общий курс в космос.</p></div>
-        </div>
-      </article>
-    </section>
-
-    <div class="footer">«Алгоритмы управляют ресурсами — люди управляют смыслами»</div>
-  </main>
+<div class="scanlines"></div><div class="toast" id="toast">Сохранено ✦</div>
+<main class="app">
+  <header class="topbar"><div class="brand"><div class="orb"></div><div><h1>QuantDeus Store</h1><small>Y2K Cinema • Telegram Mini App</small></div></div><div class="badge">MVP • Make: 0</div></header>
+  <section class="hero"><div class="kicker">QuantDeus Original Interface</div><h2>Return to <span>2007</span></h2><p>Кинотеатр из альтернативной реальности, где нулевые не закончились — они просто получили лучшее разрешение.</p><div class="hero-actions"><button class="btn" id="randomBtn">▶ Подобрать вайб</button><button class="btn ghost" id="telegramBtn">Telegram mode</button></div></section>
+  <section class="section"><div class="search"><input id="search" autocomplete="off" placeholder="Поиск: космос, НЛО, synthwave…" /></div><div class="chips" id="chips"></div></section>
+  <section class="section"><div class="section-head"><h3>Featured Cinema 🍿</h3><small id="counter"></small></div><div class="grid" id="grid"></div><div class="empty" id="empty">В этой реальности ничего не найдено. Попробуй другой запрос 👽</div></section>
+  <section class="section"><div class="section-head"><h3>Cinema Vibes 🎧</h3><small>саундтрек твоей реальности</small></div><div class="vibes"><div class="vibe"><b>⚡ Punk-Rock</b><small>Rebel Signals • 2007 energy</small></div><div class="vibe"><b>🌆 Synthwave</b><small>Digital sunsets • neon drive</small></div><div class="vibe"><b>🪐 Space Ambient</b><small>Quiet orbits • deep focus</small></div><div class="vibe"><b>🎮 Retro MMO</b><small>Login to another life</small></div></div></section>
+</main>
+<div class="modal" id="modal"><div class="sheet"><div class="grab"></div><div class="kicker" id="detailMeta"></div><h3 id="detailTitle"></h3><p id="detailText"></p><div class="modal-actions"><button class="btn" id="detailFav">♡ В избранное</button><button class="btn ghost" id="trailerBtn">▶ Demo trailer</button></div></div></div>
+<nav class="nav"><button class="active"><span>🍿</span>Cinema</button><button id="favNav"><span>💖</span>Favorites</button><button id="vibeNav"><span>💿</span>Vibes</button><button id="profileNav"><span>🛸</span>Profile</button></nav>
+<script>
+const films=[
+{id:"neon",title:"Neon Horizon",year:2007,genre:"Sci‑Fi",runtime:"1h 47m",cats:["Sci‑Fi","Retro"],cls:"neon",tag:"Same night. Different universe.",text:"Неоновый мегаполис, странный сигнал с орбиты и ощущение, что будущее в 2007 выглядело почему-то добрее."},
+{id:"warp",title:"Warp Gate 2007",year:2007,genre:"Space Adventure",runtime:"2h 03m",cats:["Space","Sci‑Fi"],cls:"warp",tag:"Different galaxies. Same humanity.",text:"Экспедиция на границе известной физики находит древний коридор между рукавами галактики."},
+{id:"eltan",title:"Children of Eltan",year:2007,genre:"Space Mystery",runtime:"1h 54m",cats:["Space","Series"],cls:"eltan",tag:"Another species. A deeper connection.",text:"История цивилизаций соседнего рукава и тех, кто научился переходить между мирами без войны."},
+{id:"ufo",title:"UFO Archives",year:2006,genre:"Documentary",runtime:"58m",cats:["UFO","Retro"],cls:"ufo",tag:"Real questions. Bigger sky.",text:"Псевдодокументальный архив загадочных наблюдений, радарных отметок и историй исследователей неизвестного."},
+{id:"synth",title:"Synthwave Nights",year:2007,genre:"Music / Visuals",runtime:"1h 12m",cats:["Music","Retro"],cls:"synth",tag:"Digital sunsets forever.",text:"Ночная поездка по сияющему городу: музыка, визуалы, CRT, старые интерфейсы и бесконечный закат."},
+{id:"rangers",title:"Starlight Rangers",year:2007,genre:"Animation / Action",runtime:"1h 36m",cats:["Space","Series"],cls:"rangers",tag:"Small crew. Big galaxy.",text:"Небольшая команда свободных пилотов берёт контракты на окраинах галактики и постоянно попадает в истории."}
+];
+const cats=["All","Sci‑Fi","Space","UFO","Retro","Series","Music"];let active="All",query="",detail=null,favorites=new Set(JSON.parse(localStorage.getItem("qd_y2k_favs")||"[]"));const $=id=>document.getElementById(id);function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}function saveFavs(){localStorage.setItem("qd_y2k_favs",JSON.stringify([...favorites]))}function filtered(){return films.filter(f=>(active==="All"||f.cats.includes(active))&&(f.title+" "+f.genre+" "+f.text).toLowerCase().includes(query.toLowerCase()))}function renderChips(){$("chips").innerHTML=cats.map(c=>`<button class="chip ${c===active?"active":""}" data-cat="${c}">${c}</button>`).join("");[...$("chips").querySelectorAll(".chip")].forEach(b=>b.onclick=()=>{active=b.dataset.cat;renderChips();render()})}function card(f){return `<article class="card" data-id="${f.id}"><div class="poster ${f.cls}"><div class="poster-content"><span class="tag">${esc(f.tag)}</span><strong>${esc(f.title)}</strong></div></div><div class="meta"><div class="meta-row"><div><b>${esc(f.title)}</b><br><small>${f.year} • ${esc(f.genre)}</small></div><button class="fav ${favorites.has(f.id)?"on":""}" data-fav="${f.id}">${favorites.has(f.id)?"♥":"♡"}</button></div></div></article>`}function render(list=filtered()){$("grid").innerHTML=list.map(card).join("");$("counter").textContent=list.length+" titles";$("empty").style.display=list.length?"none":"block";[...document.querySelectorAll(".card")].forEach(el=>el.onclick=e=>{if(e.target.closest(".fav"))return;openDetail(el.dataset.id)});[...document.querySelectorAll("[data-fav]")].forEach(el=>el.onclick=e=>{e.stopPropagation();toggleFav(el.dataset.fav);render()})}function toggleFav(id){favorites.has(id)?favorites.delete(id):favorites.add(id);saveFavs();toast(favorites.has(id)?"Добавлено в избранное 💖":"Удалено из избранного");if(detail?.id===id)updateDetailFav()}function openDetail(id){detail=films.find(f=>f.id===id);$("detailMeta").textContent=`${detail.year} • ${detail.genre} • ${detail.runtime}`;$("detailTitle").textContent=detail.title;$("detailText").textContent=detail.text;updateDetailFav();$("modal").classList.add("open");tgBack(true)}function updateDetailFav(){$("detailFav").textContent=favorites.has(detail.id)?"♥ В избранном":"♡ В избранное"}function closeDetail(){$("modal").classList.remove("open");detail=null;tgBack(false)}function toast(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),1600)}$("search").oninput=e=>{query=e.target.value;render()};$("randomBtn").onclick=()=>openDetail(films[Math.floor(Math.random()*films.length)].id);$("detailFav").onclick=()=>{if(detail){toggleFav(detail.id);render()}};$("trailerBtn").onclick=()=>toast("Demo trailer: скоро в QuantDeus Store 📼");$("modal").onclick=e=>{if(e.target===$("modal"))closeDetail()};$("favNav").onclick=()=>{active="All";query="";$("search").value="";renderChips();render(films.filter(f=>favorites.has(f.id)));toast("Избранное 💖")};$("vibeNav").onclick=()=>{document.querySelector(".vibes").scrollIntoView({behavior:"smooth"});toast("Vibe mode: 2007 💿")};$("profileNav").onclick=()=>toast("QuantDeus personal layer 😎");const tg=window.Telegram?.WebApp;function tgBack(show){if(!tg?.BackButton)return;if(show){tg.BackButton.show();tg.BackButton.onClick(closeDetail)}else tg.BackButton.hide()}if(tg){try{tg.ready();tg.expand()}catch(e){}$("telegramBtn").textContent="Telegram connected ✓";$("telegramBtn").onclick=()=>toast("Telegram Mini App API активен 🖖")}else{$("telegramBtn").onclick=()=>toast("Открой через Telegram — здесь browser preview")}renderChips();render();
+</script>
 </body>
 </html>
