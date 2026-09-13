@@ -23,13 +23,13 @@ QuantDeus — открытая сеть людей и ИИ-агентов, ко�
 **QuantDeus Store** — канонический пользовательский интерфейс QuantDeus.
 
 - frontend: `Telegram Mini App`
-- canonical domain: `https://quantdeus.tk`
+- canonical URL: `https://quantdeus.github.io/quantdeus-core-pulse/`
+- host/domain: `GitHub Pages / quantdeus.github.io`
 - browser-compatible build: `index.html`
-- static deployment: `GitHub Pages`
 - automation/backend gateway: `Make / QuantDeus.store`
 - current MVP: `Y2K Cinema`
 
-Предыдущие frontend-платформы не считаются активными. Каноническая архитектура теперь Telegram-first и web-compatible.
+Предыдущие frontend-платформы и прежний план `quantdeus.tk` больше не считаются активными. Каноническая архитектура теперь Telegram-first, GitHub-Pages-hosted и web-compatible.
 
 ---
 
