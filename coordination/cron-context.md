@@ -1,41 +1,35 @@
 # QuantDeus Daily Context Checkpoint
 
-- date: 2026-09-11
+- date: 2026-09-13
 - canonical_repo: `Energotron/quantdeus-core-pulse`
 - canonical_branch: `main`
-- canonical_head_before_cycle: `17d3291267d79c0bf71691f63a995b3cdb201277`
-- active_site_builder: `Replit`
-- active_portal_name: `QuantDeus Horizon`
-- active_portal_url: `https://quant-deus-horizon--elektron2345.replit.app`
-- active_portal_publish_status: `success`
-- portal_stack: `React + Vite + TypeScript; Express 5 backend; Replit-managed Clerk; Wouter; TanStack Query; Tailwind/shadcn; Pino; OpenClaw WebSocket transport; Drizzle/PostgreSQL prepared`
-- portal_current_surfaces: `public landing; /sign-in; /sign-up; /dashboard Mission Control; /dashboard/openclaw OpenClaw Console`
-- portal_backend_routes_active: `/api/healthz; /api/agent/*; /api/monitoring/*; /api/report/*; unfinished /portal/, /admin/, /agents routes remain unwired`
-- portal_data_state: `Mission Control monitoring remains an in-memory MonitoringStore seeded with five agents and simulated events/metrics; restart resets state; PostgreSQL public schema is not yet used for persistent portal domain data`
-- openclaw_state: `OpenClaw status/chat use the configured real WebSocket gateway and are not simulated`
+- canonical_head_before_cycle: `bbeec0671b4ea26d1be3192d30f7c3955e321ee1`
+- active_frontend: `Telegram Mini App`
+- active_store_name: `QuantDeus Store`
+- canonical_domain: `https://quantdeus.tk`
+- canonical_domain_status: `target domain; DNS/HTTPS and Telegram binding may still be pending`
+- web_compatible_host: `GitHub Pages from repository root index.html`
+- frontend_surface: `Telegram Mini App first; same build remains browser-compatible`
+- frontend_current_mvp: `Y2K Cinema`
+- frontend_current_features: `Y2K/2007 UI; search; category filters; favorites in localStorage; detail sheet; Cinema Vibes; Telegram WebApp SDK ready`
+- make_active_scenario: `QuantDeus.store`
+- make_role: `automation/backend gateway only; not the frontend`
+- make_credit_strategy: `frontend interaction and vibe-coding do not call Make unless an automation action is explicitly needed`
+- telegram_role: `primary user entry point and identity/context surface for Store`
+- chat_direction: `Store chat should mirror/synchronize the real QuantDeus Telegram chat rather than become an isolated second chat`
+- forum_direction: `forum/community surfaces may live inside QuantDeus Store`
+- legacy_frontends: `Replit and Lovable retired; do not treat them as active QuantDeus frontend platforms`
 - coordination_model: `GitHub Issues [SIGNAL]/[STRATEGY]/[TASK] + opt-in /take workflow`
-- legacy_stack_note: `docs/WIX_MESH.md and docs/WIX_AGENT_MESH.md are historical and do not define the active runtime`
-- digital_theosophy_status: `no canonical Digital Theosophy material or dedicated portal surface found in quantdeus-core-pulse main as of this cycle`
-- kr3_resolved_repo: `Energotron/SRHD_Children_of_Eltan` (legacy `Energotron/space_rangers3` resolves here)
-- kr3_branch: `master`
-- kr3_verified_head: `36777774b53f108120a800482fca737ee87dbd7d`
-- kr3_current_direction: `SRHD mod-first Children of Eltan; no newer master commit found this cycle`
+- pages_workflow: `Deploy QuantDeus Store Mini App`
+- coordinator_workflow: `QuantDeus Coordinator; cadence unchanged; Telegram credentials remain protected in GitHub Secrets`
+- pulse_workflow: `QuantDeus Pulse; cadence unchanged; canonical frontend metadata now points to Telegram Mini App / QuantDeus Store`
+- children_of_eltan_repo_reference: `Energotron/SRHD_Children_of_Eltan`
 - warp_repo: `Energotron/Warp-buble`
-- warp_branch: `main`
-- warp_verified_head: `d57df17c936e70b0ca90faa303e1d14f51e88e55`
-- warp_new_accepted_metric: `luminal Horndeski master screening equation; candidate Phaedrus regime r_screen ∝ M; reproducible xAlpha -> master equation -> escut pipeline; hyperbolicity/well-posedness remains mandatory before phenomenology`
-- warp_provenance: `https://github.com/Energotron/Warp-buble/commit/d57df17c936e70b0ca90faa303e1d14f51e88e55 ; https://doi.org/10.1103/tqp2-ccy5`
-- chosen_increment: `close the production frontend build verification blocker using the active Replit production artifact environment, without changing code or deployment`
+- chosen_increment: `remove legacy frontend assumptions from active automation context and publish the Telegram-ready QuantDeus Store MVP through the GitHub Pages workflow`
 - increment_status: `complete`
-- changed_this_cycle: `no portal code, dependencies, routes, navigation, configuration, database schema, or deployment changed; checkpoint updated to record successful production frontend build verification and the latest accepted Warp metric`
-- checks: `canonical README/COORDINATION/checkpoint re-read; recent quantdeus-core-pulse commits inspected; root/docs/coordination structure inspected and no newer machine-readable roadmap/status manifest found; active Replit app resolved; publish status confirmed success; production artifact environment confirmed PORT=24116 and BASE_PATH=/; real production frontend build completed with exit code 0, 2248 modules transformed, dist/public/index.html plus production CSS/JS bundles generated; git working tree remained clean; build emitted non-blocking sourcemap warning in tooltip component and a 628.68 kB JS chunk-size warning; latest Warp-buble main/INDEX/checkpoint inspected; latest SRHD_Children_of_Eltan master commits inspected; no newer canonical Digital Theosophy material found`
-- verified_links:
-  - `https://github.com/Energotron/quantdeus-core-pulse/commit/17d3291267d79c0bf71691f63a995b3cdb201277`
-  - `https://github.com/Energotron/Warp-buble/commit/d57df17c936e70b0ca90faa303e1d14f51e88e55`
-  - `https://github.com/Energotron/SRHD_Children_of_Eltan/commit/36777774b53f108120a800482fca737ee87dbd7d`
-  - `https://quant-deus-horizon--elektron2345.replit.app`
+- changed_this_cycle: `Make ACK metadata now reports telegram-mini-app and quantdeus.tk; GitHub Pages workflow renamed/reframed for QuantDeus Store Mini App; QuantDeus Pulse workflow receives canonical frontend metadata; root index.html replaced with Y2K Cinema Telegram-ready MVP; cron context switched away from Replit/Lovable`
 - blockers:
-  - `Persistent Mission Control domain data is not integrated; development PostgreSQL is not yet serving portal state.`
-  - `Digital Theosophy remains absent from the canonical repository, so it must not be surfaced as canonical portal content until a verified source is added.`
-  - `Frontend production build has no blocking failure, but the current bundle includes a non-blocking ~628.68 kB JS chunk warning and one sourcemap warning.`
-- next_step: `Perform a read-only investigation of the Mission Control persistence path and identify the smallest safe change required to replace restart-volatile MonitoringStore state with the already prepared PostgreSQL/Drizzle layer; do not implement persistence until the current data model and migration path are verified.`
+  - `quantdeus.tk still needs real DNS/HTTPS configuration before it can be treated as verified live production.`
+  - `Telegram BotFather Mini App URL still needs to point to the verified HTTPS Store URL when hosting/domain setup is complete.`
+  - `Forum and synchronized chat are planned surfaces, not implemented in the current MVP.`
+- next_step: `verify the GitHub Pages deployment, then bind the verified HTTPS Store URL to the Telegram bot and continue Store modules without reintroducing Replit or Lovable.`
