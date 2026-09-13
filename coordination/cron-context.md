@@ -9,6 +9,7 @@
 - canonical_domain: `https://quantdeus.tk`
 - canonical_domain_status: `target domain; DNS/HTTPS and Telegram binding may still be pending`
 - web_compatible_host: `GitHub Pages from repository root index.html`
+- pages_deployment_status: `success`
 - frontend_surface: `Telegram Mini App first; same build remains browser-compatible`
 - frontend_current_mvp: `Y2K Cinema`
 - frontend_current_features: `Y2K/2007 UI; search; category filters; favorites in localStorage; detail sheet; Cinema Vibes; Telegram WebApp SDK ready`
@@ -27,9 +28,9 @@
 - warp_repo: `Energotron/Warp-buble`
 - chosen_increment: `remove legacy frontend assumptions from active automation context and publish the Telegram-ready QuantDeus Store MVP through the GitHub Pages workflow`
 - increment_status: `complete`
-- changed_this_cycle: `Make ACK metadata now reports telegram-mini-app and quantdeus.tk; GitHub Pages workflow renamed/reframed for QuantDeus Store Mini App; QuantDeus Pulse workflow receives canonical frontend metadata; root index.html replaced with Y2K Cinema Telegram-ready MVP; cron context switched away from Replit/Lovable`
+- changed_this_cycle: `Make ACK metadata now reports telegram-mini-app and quantdeus.tk; GitHub Pages workflow renamed/reframed for QuantDeus Store Mini App; QuantDeus Pulse workflow receives canonical frontend metadata; root index.html replaced with Y2K Cinema Telegram-ready MVP; GitHub Pages deployment verified successful; cron context switched away from Replit/Lovable`
 - blockers:
   - `quantdeus.tk still needs real DNS/HTTPS configuration before it can be treated as verified live production.`
-  - `Telegram BotFather Mini App URL still needs to point to the verified HTTPS Store URL when hosting/domain setup is complete.`
+  - `Telegram Mini App URL still needs to point to the verified HTTPS Store URL when hosting/domain setup is complete.`
   - `Forum and synchronized chat are planned surfaces, not implemented in the current MVP.`
-- next_step: `verify the GitHub Pages deployment, then bind the verified HTTPS Store URL to the Telegram bot and continue Store modules without reintroducing Replit or Lovable.`
+- next_step: `configure quantdeus.tk DNS/HTTPS and bind the verified Store URL to the Telegram bot; continue Store modules without reintroducing Replit or Lovable.`
