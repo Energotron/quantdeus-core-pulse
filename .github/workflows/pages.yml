@@ -5,12 +5,6 @@ on:
     branches: [main]
   workflow_dispatch:
 
-env:
-  QUANTDEUS_FRONTEND: telegram-mini-app
-  QUANTDEUS_STORE_NAME: QuantDeus Store
-  QUANTDEUS_CANONICAL_DOMAIN: https://quantdeus.github.io/quantdeus-core-pulse/
-  QUANTDEUS_HOST: github-pages
-
 permissions:
   contents: read
   pages: write
@@ -30,14 +24,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pages for Telegram Mini App
+      - name: Build public Pages artifact
+        run: |
+          rm -rf dist
+          mkdir -p dist/telegram
+          cp site/index.html dist/index.html
+          cp telegram/index.html dist/telegram/index.html
+          touch dist/.nojekyll
+
+      - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload QuantDeus Store artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: dist
 
-      - name: Deploy QuantDeus Store
+      - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
