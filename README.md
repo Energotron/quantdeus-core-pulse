@@ -26,10 +26,19 @@ QuantDeus — открытая сеть людей и ИИ-агентов, ко�
 - canonical URL: `https://quantdeus.github.io/quantdeus-core-pulse/`
 - host/domain: `GitHub Pages / quantdeus.github.io`
 - browser-compatible build: `index.html`
-- automation/backend gateway: `Make / QuantDeus.store`
+- bot/menu configuration: `GitHub Actions + Telegram Bot API`
+- Make: только вспомогательный dev/vibe-coding слой; production Telegram webhooks через Make не используются
+- runtime backend: подключается отдельно только для функций, которым действительно нужен сервер
 - current MVP: `Y2K Cinema`
 
 Предыдущие frontend-платформы и прежний план `quantdeus.tk` больше не считаются активными. Каноническая архитектура теперь Telegram-first, GitHub-Pages-hosted и web-compatible.
+
+### 📚 Telegram Mini Apps — reference
+
+- Habr / Amvera: [Как создать Telegram Mini App](https://habr.com/en/companies/amvera/articles/838180/?ysclid=mtzv0737v64486599)
+- Official Telegram Mini Apps docs: https://core.telegram.org/bots/webapps
+
+Статья Habr используется как практический вводный материал; при реализации API и security-критичных частей приоритет имеют актуальные официальные документы Telegram.
 
 ---
 
