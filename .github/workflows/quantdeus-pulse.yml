@@ -10,6 +10,11 @@ on:
         default: 'all'
         required: false
 
+env:
+  QUANTDEUS_FRONTEND: telegram-mini-app
+  QUANTDEUS_STORE_NAME: QuantDeus Store
+  QUANTDEUS_CANONICAL_DOMAIN: https://quantdeus.tk
+
 concurrency:
   group: quantdeus-pulse
   cancel-in-progress: false
