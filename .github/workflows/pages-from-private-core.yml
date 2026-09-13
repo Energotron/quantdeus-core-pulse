@@ -1,0 +1,45 @@
+name: Deploy Pages from Private Core
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "quantdeus-store-pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout private QuantDeus core
+        uses: actions/checkout@v4
+        with:
+          repository: quantdeus/quantdeus_core.pulse
+          token: ${{ secrets.QUANTDEUS_CORE_READ_TOKEN }}
+          path: core
+          persist-credentials: false
+
+      - name: Verify site source
+        run: |
+          test -f core/site/index.html
+          test -f core/site/telegram-app.html
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site from private core
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: core/site
+
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
