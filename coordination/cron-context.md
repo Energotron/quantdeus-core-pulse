@@ -1,15 +1,14 @@
 # QuantDeus Daily Context Checkpoint
 
 - date: 2026-09-13
-- canonical_repo: `Energotron/quantdeus-core-pulse`
+- canonical_repo: `QuantDeus/quantdeus-core-pulse`
 - canonical_branch: `main`
-- canonical_head_before_cycle: `bbeec0671b4ea26d1be3192d30f7c3955e321ee1`
 - active_frontend: `Telegram Mini App`
 - active_store_name: `QuantDeus Store`
-- canonical_domain: `https://quantdeus.tk`
-- canonical_domain_status: `target domain; DNS/HTTPS and Telegram binding may still be pending`
+- canonical_url: `https://quantdeus.github.io/quantdeus-core-pulse/`
+- canonical_host: `GitHub Pages / quantdeus.github.io`
 - web_compatible_host: `GitHub Pages from repository root index.html`
-- pages_deployment_status: `success`
+- pages_deployment_status: `success; redeploys on main pushes`
 - frontend_surface: `Telegram Mini App first; same build remains browser-compatible`
 - frontend_current_mvp: `Y2K Cinema`
 - frontend_current_features: `Y2K/2007 UI; search; category filters; favorites in localStorage; detail sheet; Cinema Vibes; Telegram WebApp SDK ready`
@@ -17,20 +16,22 @@
 - make_role: `automation/backend gateway only; not the frontend`
 - make_credit_strategy: `frontend interaction and vibe-coding do not call Make unless an automation action is explicitly needed`
 - telegram_role: `primary user entry point and identity/context surface for Store`
+- telegram_mini_app_target: `https://quantdeus.github.io/quantdeus-core-pulse/`
 - chat_direction: `Store chat should mirror/synchronize the real QuantDeus Telegram chat rather than become an isolated second chat`
 - forum_direction: `forum/community surfaces may live inside QuantDeus Store`
 - legacy_frontends: `Replit and Lovable retired; do not treat them as active QuantDeus frontend platforms`
+- retired_domain_plan: `quantdeus.tk retired; GitHub Pages URL is canonical`
 - coordination_model: `GitHub Issues [SIGNAL]/[STRATEGY]/[TASK] + opt-in /take workflow`
 - pages_workflow: `Deploy QuantDeus Store Mini App`
 - coordinator_workflow: `QuantDeus Coordinator; cadence unchanged; Telegram credentials remain protected in GitHub Secrets`
-- pulse_workflow: `QuantDeus Pulse; cadence unchanged; canonical frontend metadata now points to Telegram Mini App / QuantDeus Store`
-- children_of_eltan_repo_reference: `Energotron/SRHD_Children_of_Eltan`
-- warp_repo: `Energotron/Warp-buble`
-- chosen_increment: `remove legacy frontend assumptions from active automation context and publish the Telegram-ready QuantDeus Store MVP through the GitHub Pages workflow`
+- pulse_workflow: `QuantDeus Pulse; cadence unchanged; canonical frontend metadata points to Telegram Mini App on GitHub Pages`
+- children_of_eltan_repo_reference: `QuantDeus/SRHD_Children_of_Eltan`
+- warp_repo: `QuantDeus/Warp-buble`
+- chosen_increment: `migrate the canonical QuantDeus Store address to GitHub Pages after the GitHub username change`
 - increment_status: `complete`
-- changed_this_cycle: `Make ACK metadata now reports telegram-mini-app and quantdeus.tk; GitHub Pages workflow renamed/reframed for QuantDeus Store Mini App; QuantDeus Pulse workflow receives canonical frontend metadata; root index.html replaced with Y2K Cinema Telegram-ready MVP; GitHub Pages deployment verified successful; cron context switched away from Replit/Lovable`
+- changed_this_cycle: `Make ACK points to the GitHub Pages Store; Pages and Pulse workflows use the GitHub Pages canonical URL; README and cron context migrated from quantdeus.tk to quantdeus.github.io; Telegram Mini App target is the GitHub Pages build`
 - blockers:
-  - `quantdeus.tk still needs real DNS/HTTPS configuration before it can be treated as verified live production.`
-  - `Telegram Mini App URL still needs to point to the verified HTTPS Store URL when hosting/domain setup is complete.`
+  - `GitHub connector metadata may temporarily cache the former account login after the username rename; repository redirects continue to allow writes.`
+  - `A root https://quantdeus.github.io/ URL requires the Pages repository itself to be named quantdeus.github.io; until then the canonical project URL includes /quantdeus-core-pulse/.`
   - `Forum and synchronized chat are planned surfaces, not implemented in the current MVP.`
-- next_step: `configure quantdeus.tk DNS/HTTPS and bind the verified Store URL to the Telegram bot; continue Store modules without reintroducing Replit or Lovable.`
+- next_step: `use the GitHub Pages Store URL as the Telegram bot web-app/menu target and continue building Store modules without reintroducing paid frontend hosts.`
