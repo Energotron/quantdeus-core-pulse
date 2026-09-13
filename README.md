@@ -18,13 +18,18 @@ QuantDeus — открытая сеть людей и ИИ-агентов, ко�
 
 ---
 
-## 🌐 Текущий публичный портал
+## 🌐 Активный фронтенд
 
-**Активная публичная сборка:** [QuantDeus Horizon](https://quant-deus-horizon--elektron2345.replit.app)
+**QuantDeus Store** — канонический пользовательский интерфейс QuantDeus.
 
-**Активный builder/runtime:** Replit. Портал реализован как React/Vite/TypeScript frontend с Express backend и Replit-managed Clerk; защищённая зона Mission Control находится в `/dashboard`, а OpenClaw Console — в `/dashboard/openclaw`.
+- frontend: `Telegram Mini App`
+- canonical domain: `https://quantdeus.tk`
+- browser-compatible build: `index.html`
+- static deployment: `GitHub Pages`
+- automation/backend gateway: `Make / QuantDeus.store`
+- current MVP: `Y2K Cinema`
 
-Этот репозиторий остаётся каноническим источником миссии, координационных правил и проверенных проектных статусов. Документы `docs/WIX_MESH.md` и `docs/WIX_AGENT_MESH.md` сохраняются как исторические материалы предыдущего стека и **не определяют текущую платформу** без нового явного решения в `main`.
+Предыдущие frontend-платформы не считаются активными. Каноническая архитектура теперь Telegram-first и web-compatible.
 
 ---
 
