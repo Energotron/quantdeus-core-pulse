@@ -1,20 +1,843 @@
 <!doctype html>
 <html lang="ru">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>QuantDeus Store</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<style>
-html,body{margin:0;height:100%;background:#070817;overflow:hidden}iframe{border:0;width:100%;height:100%;display:block}.status{position:fixed;z-index:9999;right:10px;top:10px;padding:7px 10px;border-radius:999px;background:rgba(7,8,23,.72);color:#b8ffdc;border:1px solid rgba(133,209,255,.28);font:600 11px system-ui;backdrop-filter:blur(14px);pointer-events:none}
-</style>
-</head>
-<body>
-<div class="status">TELEGRAM ✓</div>
-<iframe id="store" src="/" allow="clipboard-write"></iframe>
-<script>
-const tg=window.Telegram&&window.Telegram.WebApp;
-if(tg){try{tg.ready();tg.expand()}catch(e){}}
-</script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuantDeus Telegram Mini App</title>
+    <style>
+:root {
+  color-scheme: light;
+  --bg: #eaf7ff;
+  --panel: #ffffff;
+  --panel-strong: #d9f2ff;
+  --text: #112231;
+  --muted: #5d7383;
+  --line: rgba(17, 34, 49, 0.12);
+  --accent: #00a6ff;
+  --accent-2: #7ddfff;
+  --shadow: 0 18px 50px rgba(26, 113, 170, 0.18);
+}
+
+body.dark {
+  color-scheme: dark;
+  --bg: #07131d;
+  --panel: #102333;
+  --panel-strong: #17364c;
+  --text: #edf9ff;
+  --muted: #9fc1d6;
+  --line: rgba(237, 249, 255, 0.12);
+  --accent: #39c2ff;
+  --accent-2: #b4eeff;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(125, 223, 255, 0.55), transparent 30rem),
+    linear-gradient(135deg, var(--bg), var(--panel-strong));
+  color: var(--text);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #00131f;
+  cursor: pointer;
+  font-weight: 800;
+  min-height: 42px;
+  padding: 0 18px;
+}
+
+select {
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+  padding: 0 12px;
+}
+
+.app-shell {
+  width: min(100%, 720px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+.topbar,
+.status-panel,
+.hero,
+.tabs,
+.product-card,
+.settings-block,
+.roadmap {
+  box-shadow: var(--shadow);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px;
+}
+
+.topbar,
+.status-panel,
+.hero,
+.product-card,
+.settings-block,
+.roadmap,
+dialog form {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+}
+
+.eyebrow,
+.tag {
+  margin: 0 0 4px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: clamp(1.8rem, 8vw, 2.6rem);
+  line-height: 1;
+}
+
+h2 {
+  margin-bottom: 8px;
+}
+
+.icon-button {
+  width: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: var(--panel-strong);
+  color: var(--text);
+}
+
+.status-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  color: var(--muted);
+}
+
+.status-panel > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #33d17a;
+  box-shadow: 0 0 0 4px rgba(51, 209, 122, 0.18);
+}
+
+.hero {
+  margin-top: 16px;
+  padding: 22px;
+  background:
+    linear-gradient(135deg, rgba(0, 166, 255, 0.18), transparent),
+    var(--panel);
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.45;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin: 16px 0;
+  padding: 6px;
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.tab {
+  background: transparent;
+  color: var(--muted);
+}
+
+.tab.active {
+  background: var(--panel-strong);
+  color: var(--text);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: grid;
+  gap: 12px;
+}
+
+.product-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+}
+
+.product-card p:not(.tag) {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.featured {
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
+  background: linear-gradient(135deg, var(--panel), var(--panel-strong));
+}
+
+.binaural-player {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(0, 166, 255, 0.2), transparent 52%),
+    var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.player-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.player-head p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+#timerDisplay {
+  font-size: clamp(2rem, 12vw, 3.4rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.preset-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.preset {
+  display: grid;
+  gap: 2px;
+  min-height: 68px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+}
+
+.preset.active {
+  border-color: var(--accent);
+  background: var(--panel-strong);
+}
+
+.preset small {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.control-row {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.control-row input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.player-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.secondary-button {
+  border: 1px solid var(--line);
+  background: var(--panel-strong);
+  color: var(--text);
+}
+
+.signal-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.signal-line {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--panel-strong);
+}
+
+.signal-line span {
+  display: block;
+  width: 35%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transform: translateX(-100%);
+}
+
+.signal-line.playing span {
+  animation: signal-flow 1.4s linear infinite;
+}
+
+@keyframes signal-flow {
+  to {
+    transform: translateX(300%);
+  }
+}
+
+.settings-block {
+  padding: 18px;
+}
+
+.settings-block label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+.settings-block input {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--accent);
+}
+
+.roadmap {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 18px;
+  list-style: none;
+}
+
+.roadmap li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+}
+
+.roadmap span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--panel-strong);
+  color: var(--accent-2);
+  font-weight: 900;
+}
+
+dialog {
+  width: min(92vw, 420px);
+  border: 0;
+  background: transparent;
+  color: var(--text);
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+dialog form {
+  padding: 22px;
+}
+
+dialog p {
+  color: var(--muted);
+}
+
+@media (max-width: 520px) {
+  .app-shell {
+    padding: 12px;
+  }
+
+  .product-card {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .product-card button,
+  .hero button {
+    width: 100%;
+  }
+
+  .tabs,
+  .preset-grid,
+  .player-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .player-head,
+  .control-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+    </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar">
+        <div>
+          <p class="eyebrow">QuantDeus</p>
+          <h1>Mini App Store</h1>
+        </div>
+        <button id="themeToggle" class="icon-button" type="button" aria-label="Сменить тему">◐</button>
+      </section>
+
+      <section class="status-panel">
+        <div>
+          <span class="status-dot"></span>
+          <span id="tgStatus">Telegram режим проверяется</span>
+        </div>
+        <strong id="userName">Гость</strong>
+      </section>
+
+      <section class="hero">
+        <p>Личный пульт QuantDeus: микропродукты, Y2K-мотивация и игровые хабы в одном Telegram интерфейсе.</p>
+        <button id="mainAction" type="button">Открыть первый модуль</button>
+      </section>
+
+      <nav class="tabs" aria-label="Разделы QuantDeus">
+        <button class="tab active" type="button" data-tab="store">Store</button>
+        <button class="tab" type="button" data-tab="binaural">Binaural</button>
+        <button class="tab" type="button" data-tab="personal">Личный</button>
+        <button class="tab" type="button" data-tab="roadmap">Roadmap</button>
+      </nav>
+
+      <section id="store" class="tab-panel active">
+        <article class="product-card featured">
+          <div>
+            <p class="tag">Первый запуск</p>
+            <h2>Binaural.exe</h2>
+            <p>Мини-продукт для фокуса, сна и цифрового nootropic вайба.</p>
+          </div>
+          <button type="button" data-open="binaural">Запустить</button>
+        </article>
+
+        <article class="product-card">
+          <div>
+            <p class="tag">Game Hub</p>
+            <h2>Дети Эльтана</h2>
+            <p>Новости мода, лор, расы, карта рукава галактики и патчноуты.</p>
+          </div>
+          <button type="button" data-open="eltan">Открыть</button>
+        </article>
+
+        <article class="product-card">
+          <div>
+            <p class="tag">Soon</p>
+            <h2>Warp Research</h2>
+            <p>Пульс исследований SubWarp, Lentz/Krasnikov и статусы прогонов.</p>
+          </div>
+          <button type="button" data-open="warp">В план</button>
+        </article>
+      </section>
+
+      <section id="binaural" class="tab-panel">
+        <article class="binaural-player">
+          <div class="player-head">
+            <div>
+              <p class="tag">Audio module</p>
+              <h2>Binaural.exe</h2>
+              <p id="presetDescription">Выбери режим и запускай мягкий binaural-поток.</p>
+            </div>
+            <strong id="timerDisplay">05:00</strong>
+          </div>
+
+          <div class="preset-grid" aria-label="Пресеты Binaural.exe">
+            <button class="preset active" type="button" data-preset="focus">
+              <span>Focus</span>
+              <small>14 Hz</small>
+            </button>
+            <button class="preset" type="button" data-preset="sleep">
+              <span>Sleep</span>
+              <small>4 Hz</small>
+            </button>
+            <button class="preset" type="button" data-preset="cooldown">
+              <span>Cooldown</span>
+              <small>8 Hz</small>
+            </button>
+          </div>
+
+          <label class="control-row">
+            <span>Время</span>
+            <select id="durationSelect">
+              <option value="300">5 минут</option>
+              <option value="600">10 минут</option>
+              <option value="900">15 минут</option>
+              <option value="1800">30 минут</option>
+            </select>
+          </label>
+
+          <label class="control-row">
+            <span>Громкость</span>
+            <input id="volumeControl" type="range" min="0" max="0.16" value="0.06" step="0.01" />
+          </label>
+
+          <div class="player-actions">
+            <button id="playBinaural" type="button">Старт</button>
+            <button id="stopBinaural" class="secondary-button" type="button">Стоп</button>
+          </div>
+
+          <div class="signal-card">
+            <span id="leftFrequency">220 Hz</span>
+            <div class="signal-line" aria-hidden="true"><span id="signalPulse"></span></div>
+            <span id="rightFrequency">234 Hz</span>
+          </div>
+        </article>
+      </section>
+
+      <section id="personal" class="tab-panel">
+        <article class="settings-block">
+          <h2>2 уровня персонализации</h2>
+          <label>
+            <span>Личный профиль владельца</span>
+            <input type="checkbox" checked />
+          </label>
+          <label>
+            <span>Профиль пользователей QuantDeus</span>
+            <input type="checkbox" checked />
+          </label>
+          <label>
+            <span>Y2K затравка между результатами</span>
+            <input type="checkbox" checked />
+          </label>
+        </article>
+      </section>
+
+      <section id="roadmap" class="tab-panel">
+        <ol class="roadmap">
+          <li><span>01</span> Store shell и Telegram SDK</li>
+          <li><span>02</span> Binaural.exe MVP</li>
+          <li><span>03</span> Дети Эльтана Hub</li>
+          <li><span>04</span> API gateway и пользовательские профили</li>
+        </ol>
+      </section>
+
+      <dialog id="moduleDialog">
+        <form method="dialog">
+          <h2 id="dialogTitle">Модуль</h2>
+          <p id="dialogText"></p>
+          <button type="submit">Закрыть</button>
+        </form>
+      </dialog>
+    </main>
+
+    <script>
+const tg = window.Telegram?.WebApp;
+
+const modules = {
+  binaural: {
+    title: "Binaural.exe",
+    text: "MVP: пресеты Focus, Sleep, Cooldown, таймер и мягкая монетизация через рекламу."
+  },
+  eltan: {
+    title: "Дети Эльтана",
+    text: "Хаб мода: новости, расы, лор, карта соседнего рукава и ссылки на сборки."
+  },
+  warp: {
+    title: "Warp Research",
+    text: "Следующий слой: статусы прогонов, SubWarp v12, Lentz/Krasnikov и отчеты."
+  }
+};
+
+const presets = {
+  focus: {
+    label: "Focus",
+    base: 220,
+    beat: 14,
+    description: "Focus: бодрый 14 Hz слой для работы, кода и сборки идей."
+  },
+  sleep: {
+    label: "Sleep",
+    base: 174,
+    beat: 4,
+    description: "Sleep: медленный 4 Hz слой для вечернего сброса оборотов."
+  },
+  cooldown: {
+    label: "Cooldown",
+    base: 196,
+    beat: 8,
+    description: "Cooldown: ровный 8 Hz слой для охлаждения головы и перезапуска."
+  }
+};
+
+const binauralState = {
+  audioContext: null,
+  gain: null,
+  leftOscillator: null,
+  rightOscillator: null,
+  merger: null,
+  activePreset: "focus",
+  durationSeconds: 300,
+  remainingSeconds: 300,
+  timerId: null,
+  isPlaying: false
+};
+
+function initTelegram() {
+  const status = document.querySelector("#tgStatus");
+  const userName = document.querySelector("#userName");
+
+  if (!tg) {
+    status.textContent = "Обычный браузер";
+    return;
+  }
+
+  tg.ready();
+  tg.expand();
+  status.textContent = "Telegram Mini App активен";
+
+  const user = tg.initDataUnsafe?.user;
+  if (user?.first_name) {
+    userName.textContent = user.first_name;
+  }
+
+  if (tg.colorScheme === "dark") {
+    document.body.classList.add("dark");
+  }
+}
+
+function activateTab(tabName) {
+  document.querySelectorAll(".tab").forEach((tab) => {
+    tab.classList.toggle("active", tab.dataset.tab === tabName);
+  });
+
+  document.querySelectorAll(".tab-panel").forEach((panel) => {
+    panel.classList.toggle("active", panel.id === tabName);
+  });
+}
+
+function openModule(moduleName) {
+  if (moduleName === "binaural") {
+    activateTab("binaural");
+    tg?.HapticFeedback?.impactOccurred("light");
+    return;
+  }
+
+  const module = modules[moduleName];
+  if (!module) return;
+
+  const dialog = document.querySelector("#moduleDialog");
+  document.querySelector("#dialogTitle").textContent = module.title;
+  document.querySelector("#dialogText").textContent = module.text;
+
+  if (typeof dialog.showModal === "function") {
+    dialog.showModal();
+  } else {
+    alert(`${module.title}\n\n${module.text}`);
+  }
+
+  tg?.HapticFeedback?.impactOccurred("light");
+}
+
+function formatTime(totalSeconds) {
+  const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, "0");
+  const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, "0");
+  return `${minutes}:${seconds}`;
+}
+
+function updateBinauralView() {
+  const preset = presets[binauralState.activePreset];
+  document.querySelector("#presetDescription").textContent = preset.description;
+  document.querySelector("#timerDisplay").textContent = formatTime(binauralState.remainingSeconds);
+  document.querySelector("#leftFrequency").textContent = `${preset.base} Hz`;
+  document.querySelector("#rightFrequency").textContent = `${preset.base + preset.beat} Hz`;
+  document.querySelector("#playBinaural").textContent = binauralState.isPlaying ? "Пауза" : "Старт";
+  document.querySelector(".signal-line").classList.toggle("playing", binauralState.isPlaying);
+
+  document.querySelectorAll(".preset").forEach((button) => {
+    button.classList.toggle("active", button.dataset.preset === binauralState.activePreset);
+  });
+}
+
+function stopBinaural(shouldReset = true) {
+  clearInterval(binauralState.timerId);
+  binauralState.timerId = null;
+
+  binauralState.leftOscillator?.stop();
+  binauralState.rightOscillator?.stop();
+
+  binauralState.leftOscillator = null;
+  binauralState.rightOscillator = null;
+  binauralState.merger = null;
+  binauralState.isPlaying = false;
+
+  if (shouldReset) {
+    binauralState.remainingSeconds = binauralState.durationSeconds;
+  }
+
+  updateBinauralView();
+}
+
+function startBinaural() {
+  if (binauralState.isPlaying) {
+    stopBinaural(false);
+    return;
+  }
+
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContext) {
+    alert("Web Audio API недоступен в этом браузере.");
+    return;
+  }
+
+  if (!binauralState.audioContext) {
+    binauralState.audioContext = new AudioContext();
+    binauralState.gain = binauralState.audioContext.createGain();
+    binauralState.gain.connect(binauralState.audioContext.destination);
+  }
+
+  const context = binauralState.audioContext;
+  const preset = presets[binauralState.activePreset];
+  const left = context.createOscillator();
+  const right = context.createOscillator();
+  const merger = context.createChannelMerger(2);
+
+  left.frequency.value = preset.base;
+  right.frequency.value = preset.base + preset.beat;
+  left.type = "sine";
+  right.type = "sine";
+
+  left.connect(merger, 0, 0);
+  right.connect(merger, 0, 1);
+  merger.connect(binauralState.gain);
+  binauralState.gain.gain.value = Number(document.querySelector("#volumeControl").value);
+
+  left.start();
+  right.start();
+
+  binauralState.leftOscillator = left;
+  binauralState.rightOscillator = right;
+  binauralState.merger = merger;
+  binauralState.isPlaying = true;
+
+  binauralState.timerId = setInterval(() => {
+    binauralState.remainingSeconds -= 1;
+    if (binauralState.remainingSeconds <= 0) {
+      stopBinaural(true);
+      tg?.HapticFeedback?.notificationOccurred("success");
+      return;
+    }
+    updateBinauralView();
+  }, 1000);
+
+  tg?.HapticFeedback?.impactOccurred("medium");
+  updateBinauralView();
+}
+
+document.querySelector("#themeToggle").addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+});
+
+document.querySelector("#mainAction").addEventListener("click", () => {
+  openModule("binaural");
+});
+
+document.querySelectorAll(".tab").forEach((tab) => {
+  tab.addEventListener("click", () => activateTab(tab.dataset.tab));
+});
+
+document.querySelectorAll("[data-open]").forEach((button) => {
+  button.addEventListener("click", () => openModule(button.dataset.open));
+});
+
+document.querySelectorAll(".preset").forEach((button) => {
+  button.addEventListener("click", () => {
+    const wasPlaying = binauralState.isPlaying;
+    stopBinaural(false);
+    binauralState.activePreset = button.dataset.preset;
+    binauralState.remainingSeconds = binauralState.durationSeconds;
+    updateBinauralView();
+    if (wasPlaying) startBinaural();
+  });
+});
+
+document.querySelector("#durationSelect").addEventListener("change", (event) => {
+  binauralState.durationSeconds = Number(event.target.value);
+  binauralState.remainingSeconds = binauralState.durationSeconds;
+  stopBinaural(true);
+});
+
+document.querySelector("#volumeControl").addEventListener("input", (event) => {
+  if (binauralState.gain) {
+    binauralState.gain.gain.value = Number(event.target.value);
+  }
+});
+
+document.querySelector("#playBinaural").addEventListener("click", startBinaural);
+document.querySelector("#stopBinaural").addEventListener("click", () => stopBinaural(true));
+
+initTelegram();
+updateBinauralView();
+
+    </script>
+  </body>
 </html>
